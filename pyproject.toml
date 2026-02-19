@@ -1,13 +1,12 @@
 [build-system]
-requires = ["poetry-core"]
+requires = [ "poetry-core",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "test_package"
-version = "0.0.1"
+version = "0.0.2"
 description = "Semantic versioning test package"
-authors = ["Aayush Karki"]
-
+authors = [ "Aayush Karki",]
 [[tool.poetry.packages]]
 include = "test_package"
 from = "src"
