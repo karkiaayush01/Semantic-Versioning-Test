@@ -57,15 +57,21 @@ jobs:
 
         echo "Promoting from branch: $SOURCE_BRANCH with bump type: $BUMP_TYPE"
 
-        # 1. Get current version from source branch
-        current_version=$(python -c "
+        # 1. Get current version from latest git tag (global source of truth)
+        latest_tag=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+        if [ -z "$latest_tag" ]; then
+          # No tags yet, fall back to pyproject.toml
+          current_version=$(python -c "
         import toml
         with open('pyproject.toml', 'r') as f:
             config = toml.load(f)
         print(config['tool']['poetry']['version'])
-        ")
+          ")
+        else
+          current_version="${latest_tag#v}"
+        fi
 
-        echo "Current version: $current_version"
+        echo "Current version: $current_version (from tag: ${latest_tag:-none})"
 
         # 2. Bump version based on bump type
         IFS='.' read -ra VERSION_PARTS <<< "$current_version"
