@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "test_package"
-version = "0.1.3"
+version = "0.1.4"
 description = "Semantic versioning test package"
 authors = [ "Aayush Karki",]
 [[tool.poetry.packages]]
